@@ -26,10 +26,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void READ_SMS(View view){
 
-        Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
-        cursor.moveToFirst();
+        try (Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null)){
+            StringBuilder smsBuilder = new StringBuilder();
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String message = cursor.getString(12);
+                    smsBuilder.append(message);
+                    smsBuilder.append("\n");
+                } while (cursor.moveToNext());
+            }
+            myTextView.setText(smsBuilder.toString());
+        }
 
-        myTextView.setText(cursor.getString(12));
     }
 
 }
