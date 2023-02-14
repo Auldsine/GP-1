@@ -24,11 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
         myTextView = findViewById(R.id.textView);
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+
+        READ_SMS();
     }
 
-    public void READ_SMS(View view){
-        handler.postDelayed(Retrieve_SMS, 5000);
 
+    public void READ_SMS(){
+        handler.postDelayed(Retrieve_SMS, 1);
     }
 
     private Runnable Retrieve_SMS = new Runnable() {
