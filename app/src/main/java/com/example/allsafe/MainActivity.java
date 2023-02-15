@@ -39,11 +39,23 @@ public class MainActivity extends AppCompatActivity {
             try (Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null)){
                 StringBuilder smsBuilder = new StringBuilder();
                 if (cursor != null && cursor.moveToFirst()) {
-                    do {
-                        String message = cursor.getString(12);
-                        smsBuilder.append(message);
-                        smsBuilder.append("\n");
-                    } while (cursor.moveToNext());
+                    int addressIndex = cursor.getColumnIndex("address");
+                    if(addressIndex >= 0){
+                        do {
+                            String address = cursor.getString(addressIndex);
+                            String message = cursor.getString(12);
+
+                            smsBuilder.append("From: ");
+                            smsBuilder.append(address);
+                            smsBuilder.append("\n");
+                            smsBuilder.append("Message:\n");
+                            smsBuilder.append(message);
+                            smsBuilder.append("\n");
+                            smsBuilder.append("______________________________________");
+                            smsBuilder.append("\n \n");
+
+                        } while (cursor.moveToNext());
+                    }
                 }
                 myTextView.setText(smsBuilder.toString());
             }
