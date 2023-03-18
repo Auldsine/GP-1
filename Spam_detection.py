@@ -132,7 +132,7 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 print(model.summary())
 
 
-history = model.fit(x_train_features, train_y, batch_size=2048, epochs=1, validation_data=(x_test_features, test_y))
+history = model.fit(x_train_features, train_y, batch_size=2048, epochs=20, validation_data=(x_test_features, test_y))
 
 from  matplotlib import pyplot as plt
 plt.plot(history.history['accuracy'])
